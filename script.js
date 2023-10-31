@@ -87,7 +87,9 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
-//My pseudocode
+
+//My pseudocode//
+
 //prompt the user to enter a password length
   //parseInt the promot to convert to number
   //check if users input is a number, >8 and <128 characters
@@ -98,9 +100,10 @@ var upperCasedCharacters = [
   //2. use uppercase?
   //3. whether to include numbers?
   //4. use of special characters?
-  //Write a condition so that at least one of the character types is selected - use an if statement here
+  //Write a condition so that at least one of the character types is selected - use an if statement here with !
 
 //Have variables that will hold all of the conditions that have been selected - can make this an object as the inputs will all be related to the password created
+  //return this so there is an output
 
 // Function to prompt user for password options
 function getPasswordOptions() {
@@ -115,16 +118,28 @@ function getPasswordOptions() {
   var forNumbers = confirm("Do you want to include numbers?");
   var forSpecialCharacters = confirm("Do you want to include special characters?");
   
+  //if statement to check that at least one of the character types have been used
   if(!forLowerCase && !forUpperCase && !forNumbers && forSpecialCharacters) {
     alert("Please select at least one of the character types to proceed.");
   }
 
+  //object to hold the character types that has been selected by the user
+  var characterChoices = {
+    passwordLength: passwordLength,
+    lowerCase: forLowerCase, 
+    upperCase: forUpperCase,
+    numbers: forNumbers,
+    specialCharacters: forSpecialCharacters
+  };
 
+  return characterChoices;
 
 }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
+  var randomChar = Math.floor(Math.random() * arr.length);
+  return arr[randomChar];
 
 }
 
