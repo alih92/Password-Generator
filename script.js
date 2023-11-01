@@ -92,24 +92,31 @@ var upperCasedCharacters = [
 
 //prompt the user to enter a password length
   //parseInt the promot to convert to number
-  //check if users input is a number, >8 and <128 characters
-  //if conditions don't match, alert the user of the conditions
+    //check if users input is a number, >8 and <128 characters
+      //if conditions don't match, alert the user of the conditions
 
 //write confirm statements and store in a variable asking: 
   //1. use lowercase?
   //2. use uppercase?
   //3. whether to include numbers?
   //4. use of special characters?
-  //Write a condition so that at least one of the character types is selected - use an if statement here with !
+    //Write a condition so that at least one of the character types is selected - use an if statement here with !
 
 //Have variables that will hold all of the conditions that have been selected - can make this an object as the inputs will all be related to the password created
   //return this so there is an output
 
+//use the function to randomly generate numbers
+  //use Math.round and Math.floor methods
+
+
+//End pseudocode//
+
 // Function to prompt user for password options
 function getPasswordOptions() {
   var passwordLength = parseInt(prompt("Enter the length you would like your password to be: ")); // issue a prompt via a variable asking length of password. ParsenInt this prompt into a number as what user returns will be a string.
-  if (isNaN(passwordLength) || passwordLength < 8 || passwordLength >128) {
+  if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     alert("Password length incorrect! Password length must be a number between 8 and 128 characters.");
+    return;
   } //if statement to to check password length to make sure it is more than 8 and less than 128 and to ensure it is a number.
 
   //variables to hold the responses of user for the different character types
@@ -119,20 +126,21 @@ function getPasswordOptions() {
   var forSpecialCharacters = confirm("Do you want to include special characters?");
   
   //if statement to check that at least one of the character types have been used
-  if(!forLowerCase && !forUpperCase && !forNumbers && forSpecialCharacters) {
+  if(!forLowerCase && !forUpperCase && !forNumbers && !forSpecialCharacters) {
     alert("Please select at least one of the character types to proceed.");
+    return;
   }
 
-  //object to hold the character types that has been selected by the user
-  var characterChoices = {
+  //variable to hold the user responses for the length and character types
+  var passwordOptions = {
     passwordLength: passwordLength,
-    lowerCase: forLowerCase, 
-    upperCase: forUpperCase,
-    numbers: forNumbers,
-    specialCharacters: forSpecialCharacters
+    forSpecialChars: forSpecialCharacters,
+    forNumbers: forNumbers,
+    forLowercase: forLowerCase,
+    forUppercase: forUpperCase
   };
 
-  return characterChoices;
+  return passwordOptions;
 
 }
 
@@ -145,6 +153,31 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
+  var choices = getPasswordOptions();
+   var password = "";
+  var allCharacters = [];
+
+  if (choices.forSpecialChars) {
+    allCharacters = allCharacters.concat(specialCharacters);
+  }
+
+  if (choices.forNumbers) {
+    allCharacters = allCharacters.concat(numericCharacters);
+  }
+
+  if (choices.forLowercase){
+    allCharacters = allCharacters.concat(lowerCasedCharacters);
+  }
+
+  if (choices.forUppercase) {
+    allCharacters = allCharacters.concat(upperCasedCharacters);
+  }
+
+  for (var i = 0; i <choices.length; i++) {
+    password += getRandom(allCharacters);
+  }
+
+  return password;
 
 }
 
