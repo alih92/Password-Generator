@@ -120,10 +120,10 @@ function getPasswordOptions() {
   } //if statement to to check password length to make sure it is more than 8 and less than 128 and to ensure it is a number.
 
   //variables to hold the responses of user for the different character types
-  var forLowerCase = confirm("Do you want to include lower case?");
-  var forUpperCase = confirm("Do you want to include upper case?");
-  var forNumbers = confirm("Do you want to include numbers?");
-  var forSpecialCharacters = confirm("Do you want to include special characters?");
+  var forLowerCase = confirm("Do you want to include lower case? Click OK to include or cancel to exclude");
+  var forUpperCase = confirm("Do you want to include upper case? Click OK to include or cancel to exclude");
+  var forNumbers = confirm("Do you want to include numbers? Click OK to include or cancel to exclude");
+  var forSpecialCharacters = confirm("Do you want to include special characters? Click OK to include or cancel to exclude");
   
   //if statement to check that at least one of the character types have been used
   if(!forLowerCase && !forUpperCase && !forNumbers && !forSpecialCharacters) {
@@ -139,7 +139,7 @@ function getPasswordOptions() {
     forLowercase: forLowerCase,
     forUppercase: forUpperCase
   };
-
+  // console.log(passwordOptions)
   return passwordOptions;
 
 }
@@ -147,6 +147,8 @@ function getPasswordOptions() {
 // Function for getting a random element from an array
 function getRandom(arr) {
   var randomChar = Math.floor(Math.random() * arr.length);
+  // console.log(arr[randomChar])
+
   return arr[randomChar];
 
 }
@@ -154,8 +156,9 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
   var choices = getPasswordOptions();
-   var password = "";
+  var password = "";
   var allCharacters = [];
+  // console.log(choices)
 
   if (choices.forSpecialChars) {
     allCharacters = allCharacters.concat(specialCharacters);
@@ -172,8 +175,9 @@ function generatePassword() {
   if (choices.forUppercase) {
     allCharacters = allCharacters.concat(upperCasedCharacters);
   }
+  // console.log(allCharacters)
 
-  for (var i = 0; i <choices.length; i++) {
+  for (var i = 0; i <choices.passwordLength; i++) {
     password += getRandom(allCharacters);
   }
 
